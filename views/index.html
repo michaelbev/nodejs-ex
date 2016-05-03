@@ -7844,7 +7844,6 @@
 </head>
 
 <body>
-
     <section class='container'>
       <div class="logo">
           <a href="https://www.thedigitalgarage.io/"></a>
@@ -7916,36 +7915,21 @@ $ git push</pre>
 
                 <h2>Request information</h2>
                 <p>Page view count:
-                    <% if (pageCountMessage) { %>
-                        <span class="code" id="count-value"><%=pageCountMessage%></span>
-                </p>
-                <div class="code">
-                    <h3>DB Connection Info:</h3>
-                    <table style='margin-left: 20px'>
-                        <tr>
-                            <td>Type:</td>
-                            <td>
-                                <%=d bInfo.type %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>URL:</td>
-                            <td>
-                                <%=d bInfo.url %>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <% if (pageCountMessage) { %>
+                  <span class="code" id="count-value"><%=pageCountMessage%></span>
+                  </p>
+                    <div class="code"><h3>DB Connection Info:</h3>
+                      <table style='margin-left: 20px'>
+                        <tr><td>Type:</td><td><%= dbInfo.type %></td></tr>
+                        <tr><td>URL:</td><td><%= dbInfo.url %></td></tr>
+                      </table>
+                    </div>
                 <% } else { %>
-                    <span class="code" id="count-value">No database configured</span>
-                    </p>
-                    <%} %>
+                  <span class="code" id="count-value">No database configured</span>
+                  </p>
+                <%} %>
             </section>
         </div>
-
-        <footer>
-
-        </footer>
     </section>
 </body>
 
