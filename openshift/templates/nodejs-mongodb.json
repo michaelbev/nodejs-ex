@@ -4,7 +4,7 @@
   "metadata": {
     "name": "nodejs-mongodb-example",
     "annotations": {
-      "description": "An example Node.js application with a MongoDB database",
+      "description": "This is an example Node.js application with a MongoDB database created and approved by the Digital Garage to run in your workspace",
       "tags": "quickstart,nodejs,mongodb",
       "iconClass": "icon-nodejs"
     }
@@ -83,7 +83,7 @@
             "from": {
               "kind": "ImageStreamTag",
               "namespace": "${NAMESPACE}",
-              "name": "nodejs:0.10"
+              "name": "centos7-s2i-nodejs:0.12.13"
             }
           }
         },
@@ -382,7 +382,7 @@
       "name": "SOURCE_REPOSITORY_URL",
       "displayName": "Git Repository URL",
       "description": "The URL of the repository with your application source code.",
-      "value": "https://github.com/openshift/nodejs-ex.git"
+      "value": "https://github.com/thedigitalgarage/nodejs-ex.git"
     },
     {
       "name": "SOURCE_REPOSITORY_REF",
