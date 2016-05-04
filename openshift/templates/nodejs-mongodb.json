@@ -83,7 +83,7 @@
             "from": {
               "kind": "ImageStreamTag",
               "namespace": "${NAMESPACE}",
-              "name": "centos7-s2i-nodejs:0.12.13"
+              "name": "centos7-s2i-nodejs:0.10.44"
             }
           }
         },
@@ -363,7 +363,7 @@
     {
       "name": "NAMESPACE",
       "displayName": "Namespace",
-      "description": "The OpenShift Namespace where the ImageStream resides.",
+      "description": "The Namespace where the ImageStream resides.",
       "value": "openshift"
     },
     {
