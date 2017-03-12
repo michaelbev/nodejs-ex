@@ -2,15 +2,16 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "nodejs-example",
+    "name": "qs-nodejs",
     "annotations": {
-      "description": "An example Node.js application with no database",
-      "tags": "quickstart,nodejs",
+      "openshift.io/display-name": "NodeJS Quickstart",
+      "description": "An example JavaScript appliction built on Node.js/Express.js with no database. For more information about using this quickstart template, including Digital Garage considerations, see https://github.com/thedigitalgarage/nodejs-ex/blob/master/README.md.",
+      "tags": "quickstart,nodejs,express",
       "iconClass": "icon-nodejs"
     }
   },
   "labels": {
-    "template": "nodejs-example"
+    "template": "qs-nodejs"
   },
   "objects": [
     {
@@ -82,8 +83,8 @@
           "sourceStrategy": {
             "from": {
               "kind": "ImageStreamTag",
-              "namespace": "${NAMESPACE}",
-              "name": "nodejs:0.10"
+              "namespace": "openshift",
+              "name": "centos7-s2i-nodejs:latest"
             }
           }
         },
@@ -137,7 +138,7 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "nodejs-example"
+                "qs-nodejs"
               ],
               "from": {
                 "kind": "ImageStreamTag",
@@ -163,7 +164,7 @@
           "spec": {
             "containers": [
               {
-                "name": "nodejs-example",
+                "name": "qs-nodejs",
                 "image": " ",
                 "ports": [
                   {
@@ -191,28 +192,6 @@
                         "memory": "${MEMORY_LIMIT}"
                     }
                 },
-                "env": [
-                  {
-                    "name": "DATABASE_SERVICE_NAME",
-                    "value": "${DATABASE_SERVICE_NAME}"
-                  },
-                  {
-                    "name": "MONGODB_USER",
-                    "value": "${MONGODB_USER}"
-                  },
-                  {
-                    "name": "MONGODB_PASSWORD",
-                    "value": "${MONGODB_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_DATABASE",
-                    "value": "${MONGODB_DATABASE}"
-                  },
-                  {
-                    "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
-                  }
-                ],
                 "resources": {
 		      "limits": {
 			  "memory": "${MEMORY_LIMIT}"
@@ -234,22 +213,22 @@
       "value": "nodejs-example"
     },
     {
-      "name": "NAMESPACE",
-      "displayName": "Namespace",
-      "description": "The OpenShift Namespace where the ImageStream resides.",
-      "value": "openshift"
+      "name": "APPLICATION_DOMAIN",
+      "displayName": "Application Hostname",
+      "description": "The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted.",
+      "value": ""
     },
     {
       "name": "MEMORY_LIMIT",
       "displayName": "Memory Limit",
-      "description": "Maximum amount of memory the container can use.",
-      "value": "512Mi"
+      "description": "Maximum amount of memory the Node.js container can use. The default value of 192Mi ensures that this quickstart will run with other services on a 512Mi tier. If you are running this service by itself, you can increase the limit to 512Mi. If you experience performance issues you can increase this limit at any time in the Deployment Configuration.",
+      "value": "192Mi"
     },
     {
       "name": "SOURCE_REPOSITORY_URL",
       "displayName": "Git Repository URL",
       "description": "The URL of the repository with your application source code.",
-      "value": "https://github.com/openshift/nodejs-ex.git"
+      "value": "https://github.com/thedigitalgarage/nodejs-ex.git"
     },
     {
       "name": "SOURCE_REPOSITORY_REF",
@@ -260,12 +239,6 @@
       "name": "CONTEXT_DIR",
       "displayName": "Context Directory",
       "description": "Set this to the relative path to your project if it is not in the root of your repository."
-    },
-    {
-      "name": "APPLICATION_DOMAIN",
-      "displayName": "Application Hostname",
-      "description": "The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted.",
-      "value": ""
     },
     {
       "name": "GITHUB_WEBHOOK_SECRET",
@@ -280,29 +253,6 @@
       "description": "A secret string used to configure the Generic webhook.",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
-    },
-    {
-      "name": "DATABASE_SERVICE_NAME",
-      "displayName": "Database Service Name"
-    },
-    {
-      "name": "MONGODB_USER",
-      "displayName": "MongoDB Username",
-      "description": "Username for MongoDB user that will be used for accessing the database."
-    },
-    {
-      "name": "MONGODB_PASSWORD",
-      "displayName": "MongoDB Password",
-      "description": "Password for the MongoDB user."
-    },
-    {
-      "name": "MONGODB_DATABASE",
-      "displayName": "Database Name"
-    },
-    {
-      "name": "MONGODB_ADMIN_PASSWORD",
-      "displayName": "Database Administrator Password",
-      "description": "Password for the database admin user."
     }
   ]
 }
