@@ -1,58 +1,25 @@
-Node.js sample app on OpenShift!
+NodeJS sample app on Digital Garage!
 -----------------
 
-This example will serve a welcome page and the current hit count as stored in a database.
+This example will serve a welcome page.
 
-### OpenShift Origin v3 setup
+### Creating a project/workspace on Digital Garage
 
-There are four methods to get started with OpenShift v3:
-
-  - Running a virtual machine with Vagrant
-  - Starting a Docker container
-  - Downloading the binary
-  - Running an Ansible playbook
-
-#### Running a virtual machine with Vagrant
-
-One option is to use the Vagrant all-in-one launch as described in the [OpenShift Origin All-In-One Virtual Machine](https://www.openshift.org/vm/). This option works on Mac, Windows and Linux, but requires that you install [Vagrant](https://www.vagrantup.com/downloads.html) running [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
-
-#### Starting a Docker container
-
-Another option is running the OpenShift Origin Docker container image from [Docker Hub](https://hub.docker.com/r/openshift/origin/) launch as described in the [Getting Started for Administrators](https://docs.openshift.org/latest/getting_started/administrators.html#running-in-a-docker-container). This method is supported on Fedora, CentOS, and Red Hat Enterprise Linux (RHEL) hosts only.
-
-#### Downloading the Binary
-
-Red Hat periodically publishes OpenShift Origin Server binaries for Linux, which you can download on the OpenShift Origin GitHub [Release](https://github.com/openshift/origin/releases) page. Instructions on how to install and launch the Openshift Origin Server from binary are described in [Getting Started for Administrators](https://docs.openshift.org/latest/getting_started/administrators.html#downloading-the-binary).
-
-#### Running an Ansible playbook
-
-Outlined as the [Advanced Intallation](https://docs.openshift.org/latest/install_config/install/advanced_install.html) method for poduction environments, OpenShift Origin is also installable via Ansible playbook made avaialble on the GitHub [openShift-ansible](https://github.com/openshift/openshift-ansible) repo.
-
-
-### Creating a project
-
-After logging in with `oc login` (default username/password: openshift), if you don't have a project setup all ready, go ahead and take care of that:
-
-        $ oc new-project nodejs-echo \
-        $ --display-name="nodejs" --description="Sample Node.js app"
-
-That's it, project has been created.  Though it would probably be good to set your current project to this (thought new-project does it automatically as well), such as:
-
-        $ oc project nodejs-echo
+If you do not already have an account you can sign up for free [here](www.thedigitalgarage.io). After you sign into your account you can create a project/workspace.
 
 ### Creating new apps
 
-You can create a new OpenShift application using the web console or by running the `oc new-app` command from the CLI. With the  OpenShift CLI there are three ways to create a new application, by specifying either:
+You can create a new application using the web console or by running the `oc new-app` command from the CLI. With the  OpenShift CLI there are three ways to create a new application, by specifying either:
 
-- [source code](https://docs.openshift.com/enterprise/3.0/dev_guide/new_app.html#specifying-source-code)
-- [OpenShift templates](https://docs.openshift.com/enterprise/3.0/dev_guide/new_app.html#specifying-a-template)
-- [DockerHub images](https://docs.openshift.com/enterprise/3.0/dev_guide/new_app.html#specifying-an-image)
+- [With source code](http://docs.thedigitalgarage.io/dev_guide/new_app.html#specifying-source-code)
+- [Via templates](http://docs.thedigitalgarage.io/dev_guide/new_app.html#specifying-a-template)
+- [DockerHub images](http://docs.thedigitalgarage.io/dev_guide/new_app.html#specifying-an-image)
 
 #### Create a new app from source code (method 1)
 
 Pointing `oc new-app` at source code kicks off a chain of events, for our example run:
 
-        $ oc new-app https://github.com/openshift/nodejs-ex -l name=myapp
+        $ oc new-app https://github.com/thedigitalgarage/nodejs-ex -l name=myapp
 
 The tool will inspect the source code, locate an appropriate image on DockerHub, create an ImageStream for that image, and then create the right build configuration, deployment configuration and service definition.
 
@@ -60,26 +27,30 @@ The tool will inspect the source code, locate an appropriate image on DockerHub,
 
 #### Create a new app from a template (method 2)
 
-We can also [create new apps using OpenShift template files](https://docs.openshift.com/enterprise/3.0/dev_guide/new_app.html#specifying-a-template). Clone the demo app source code from [GitHub repo](https://github.com/openshift/nodejs-ex) (fork if you like).
+We can also [create new apps using template files](http://docs.thedigitalgarage.io/dev_guide/new_app.html#specifying-a-template). Clone the demo app source code from [GitHub repo](https://github.com/thedigitalgarage/nodejs-ex) (fork if you like).
 
-        $ git clone https://github.com/openshift/nodejs-ex
+        $ git clone https://github.com/thedigitalgarage/nodejs-ex
 
-Looking at the repo, you'll notice two files in the openshift/template directory:
+Looking at the repo, you'll notice one file in the openshift/templates directory:
 
 	nodejs-ex
-	├── README.md
+  ├── app
+  ├── config
+  │   └── database.js
+  ├── LICENSE
 	├── openshift
 	│   └── templates
-	│       ├── nodejs-mongodb.json
-	│       └── nodejs.json
+	│       └── qs-nodejs-mongo.json
+  ├── public
+	│   ├── app.js
+  │   └── index.html
 	├── package.json
-	├── server.js
-	└── views
-	    └── index.html
+  ├── README.md
+	└── server.js
 
-We can create the the new app from the `nodejs.json` template by using the `-f` flag and pointing the tool at a path to the template file:
+We can create the the new app from the `qs-nodejs-mongo.json` template by using the `-f` flag and pointing the tool at a path to the template file:
 
-        $ oc new-app -f /path/to/nodejs.json
+        $ oc new-app -f /path/to/qs-nodejs-mongo.json
 
 #### Build the app
 
@@ -91,7 +62,7 @@ Check the status of your new nodejs app with the command:
 
 Which should return something like:
 
-        In project nodejs (nodejs-echo) on server https://10.2.2.2:8443
+        In project my-project on server https://10.2.2.2:8443
 
         svc/nodejs-ex - 172.30.108.183:8080
           dc/nodejs-ex deploys istag/nodejs-ex:latest <-
@@ -99,7 +70,7 @@ Which should return something like:
               build #1 running for 7 seconds
             deployment #1 waiting on image or update
 
-Note the server address for the web console, as yours will likely differ if you're not using the Vagrant set-up. You can follow along with the web console to see what new resources have been created and watch the progress of builds and deployments.
+Note: You can follow along with the web console to see what new resources have been created and watch the progress of builds and deployments.
 
 If the build is not yet started (you can check by running `oc get builds`), start one and stream the logs with:
 
@@ -124,89 +95,24 @@ An OpenShift route exposes a service at a host name, like www.example.com, so th
 
 DNS resolution for a host name is handled separately from routing; you may wish to configure a cloud domain that will always correctly resolve to the OpenShift router, or if using an unrelated host name you may need to modify its DNS records independently to resolve to the router.
 
-That aside, let's explore our new web console, which for our example is running at [https://10.2.2.2:8443](https://10.2.2.2:8443).
-
-After logging into the web console with your same CLI `oc login` credentials, click on the project we just created, then click `Create route`.
-
-If you're running OpenShift on a local machine, you can preview the new app by setting the Hostname to a localhost like: *10.2.2.2*.
+After logging into the web console with your account credentials, make sure you are in the correct project/workspace and then click `Create route`.
 
 This could also be accomplished by running:
 
-        $ oc expose svc/nodejs-ex --hostname=www.example.com
+        $ oc expose svc/nodejs-ex --hostname=myapp-myproject.apps.thedigitalgarage.io
 
-Now navigate to the newly created Node.js web app at the hostname we just configured, for our example it was simply [https://10.2.2.2](https://10.2.2.2).
+in the CLI.
 
-#### Create a new app from an image (method 3)
-
-You may have noticed the index page "Page view count" reads "No database configured". Let's fix that by adding a MongoDB service. We could use the second OpenShift template example (`nodejs-mongodb.json`) but for the sake of demonstration let's point `oc new-app` at a DockerHub image:
-
-        $ oc new-app centos/mongodb-26-centos7 \
-        $ -e MONGODB_USER=admin,MONGODB_DATABASE=mongo_db,MONGODB_PASSWORD=secret,MONGODB_ADMIN_PASSWORD=super-secret
-
-The `-e` flag sets the environment variables we want used in the configuration of our new app.
-
-Running `oc status` or checking the web console will reveal the address of the newly created MongoDB:
-
-	In project nodejs-echo on server https://10.2.2.2:8443
-
-	svc/mongodb-26-centos7 - 172.30.0.112:27017
-	  dc/mongodb-26-centos7 deploys istag/mongodb-26-centos7:latest
-	    deployment #1 running for 43 seconds - 1 pod
-
-	http://10.2.2.2 to pod port 8080-tcp (svc/nodejs-ex)
-	  dc/nodejs-ex deploys istag/nodejs-ex:latest <-
-	    bc/nodejs-ex builds https://github.com/openshift/nodejs-ex with openshift/nodejs:0.10
-	    deployment #1 deployed 14 minutes ago - 1 pod
-
-Note that the url for our new Mongo instance, for our example, is `172.30.0.112:27017`, yours will likely differ.
+Now navigate to the newly created NodeJS web app at the hostname we just configured.
 
 #### Setting environment variables
 
 To take a look at environment variables set for each pod, run `oc env pods --all --list`.
 
-We need to add the environment variable `MONGO_URL` to our Node.js web app so that it will utilize our MongoDB, and enable the "Page view count" feature. Run:
-
-        $ oc set env dc/nodejs-ex MONGO_URL='mongodb://admin:secret@172.30.0.112:27017/mongo_db'
-
-Then check `oc status` to see that an updated deployment has been kicked off:
-
-	In project nodejs-echo on server https://10.2.2.2:8443
-
-	svc/mongodb-26-centos7 - 172.30.0.112:27017
-	  dc/mongodb-26-centos7 deploys istag/mongodb-26-centos7:latest
-	    deployment #1 deployed 2 hours ago - 1 pod
-
-	http://10.2.2.2 to pod port 8080-tcp (svc/nodejs-ex)
-	  dc/nodejs-ex deploys istag/nodejs-ex:latest <-
-	    bc/nodejs-ex builds https://github.com/openshift/nodejs-ex with openshift/nodejs:0.10
-	    deployment #2 deployed about a minute ago - 1 pod
-	    deployment #1 deployed 2 hours ago
-
 #### Success
 
-You should now have a Node.js welcome page showing the current hit count, as stored in a MongoDB database.
+You should now have a NodeJS welcome page rendered via AngularJS.
 
 #### Pushing updates
 
 Assuming you used the URL of your own forked repository, we can easily push changes and simply repeat the steps above which will trigger the newly built image to be deployed.
-
-### Debugging
-
-Review some of the common tips and suggestions [here](https://github.com/openshift/origin/blob/master/docs/debugging-openshift.md).
-
-### Web UI
-
-To run this example from the Web UI, you can same steps following done on the CLI as defined above. Here's a video showing it in motion:
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=uocucZqg_0I&t=225" target="_blank">
-<img src="http://img.youtube.com/vi/uocucZqg_0I/0.jpg"
-alt="OpenShift 3: Node.js Sample" width="240" height="180" border="10" /></a>
-
-## Looking for help
-
-If you get stuck at some point, or think that this document needs further details or clarification, you can give feedback and look for help using the channels mentioned in [the OpenShift Origin repo](https://github.com/openshift/origin), or by filing an issue.
-
-
-## License
-
-This code is dedicated to the public domain to the maximum extent permitted by applicable law, pursuant to [CC0](http://creativecommons.org/publicdomain/zero/1.0/).
