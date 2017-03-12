@@ -4,6 +4,6 @@ var app = angular.module('helloWorld', [])
     .controller('MainCtrl', [
         '$scope',
         function($scope) {
-            $scope.test = 'Hello World! Your first MEAN Stack App on Digital Garage';
+            $scope.test = 'Hello World! Your first NodeJS Application on Digital Garage';
         }
     ]);
