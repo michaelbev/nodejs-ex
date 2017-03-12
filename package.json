@@ -7,6 +7,7 @@
         "chai": "^3.5.0",
         "chai-http": "^2.0.1",
         "ejs": "^2.4.1",
+        "body-parser": "^1.4.3",
         "express": "^4.13.4",
         "mongoose": "^4.4.12",
         "mocha": "^2.4.5",
