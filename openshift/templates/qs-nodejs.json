@@ -70,6 +70,7 @@
         }
       },
       "spec": {
+        "completionDeadlineSeconds": 900,
         "source": {
           "type": "Git",
           "git": {
@@ -94,6 +95,16 @@
             "name": "${NAME}:latest"
           }
         },
+        "resources": {
+            "limits": {
+                "cpu": "300m",
+                "memory": "512Mi"
+            },
+            "requests": {
+                "cpu": "300m",
+                "memory": "512Mi"
+            }
+        },
         "triggers": [
           {
             "type": "ImageChange"
@@ -113,10 +124,7 @@
               "secret": "${GENERIC_WEBHOOK_SECRET}"
             }
           }
-        ],
-        "postCommit": {
-          "script": "npm test"
-        }
+        ]
       }
     },
     {
@@ -129,6 +137,7 @@
         }
       },
       "spec": {
+        "activeDeadlineSeconds": 300,
         "strategy": {
           "type": "Rolling"
         },
@@ -162,6 +171,7 @@
             }
           },
           "spec": {
+            "activeDeadlineSeconds": null,
             "containers": [
               {
                 "name": "qs-nodejs",
@@ -191,11 +201,6 @@
                     "limits": {
                         "memory": "${MEMORY_LIMIT}"
                     }
-                },
-                "resources": {
-		      "limits": {
-			  "memory": "${MEMORY_LIMIT}"
-		      }
                 }
               }
             ]
