@@ -4,21 +4,14 @@
   "metadata": {
     "name": "qs-nodejs",
     "annotations": {
-<<<<<<< HEAD:openshift/templates/qs-nodejs.json
       "openshift.io/display-name": "NodeJS Quickstart",
       "description": "An example JavaScript appliction built on Node.js/Express.js with no database. For more information about using this quickstart template, including Digital Garage considerations, see https://github.com/thedigitalgarage/nodejs-ex/blob/master/README.md.",
       "tags": "quickstart,nodejs,express",
-      "iconClass": "icon-nodejs"
-=======
-      "openshift.io/display-name": "Node.js",
-      "description": "An example Node.js application with no database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/nodejs-ex/blob/master/README.md.",
-      "tags": "quickstart,nodejs",
       "iconClass": "icon-nodejs",
       "template.openshift.io/long-description": "This template defines resources needed to develop a NodeJS application, including a build configuration and application deployment configuration.  It does not include a database.",
-      "template.openshift.io/provider-display-name": "Red Hat, Inc.",
-      "template.openshift.io/documentation-url": "https://github.com/openshift/nodejs-ex",
-      "template.openshift.io/support-url": "https://access.redhat.com"
->>>>>>> openshift/master:openshift/templates/nodejs.json
+      "template.openshift.io/provider-display-name": "the Digital Garage, Inc.",
+      "template.openshift.io/documentation-url": "https://github.com/thedigitalgarage/nodejs-ex",
+      "template.openshift.io/support-url": "http://www.thedigitalgarage.io"
     }
   },
   "message": "The following service(s) have been created in your project: ${NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshift/nodejs-ex/blob/master/README.md.",
@@ -100,13 +93,8 @@
           "sourceStrategy": {
             "from": {
               "kind": "ImageStreamTag",
-<<<<<<< HEAD:openshift/templates/qs-nodejs.json
               "namespace": "openshift",
               "name": "centos7-s2i-nodejs:latest"
-            }
-=======
-              "namespace": "${NAMESPACE}",
-              "name": "nodejs:6"
             },
             "env":  [
               {
@@ -114,7 +102,6 @@
                   "value": "${NPM_MIRROR}"
               }
             ]
->>>>>>> openshift/master:openshift/templates/nodejs.json
           }
         },
         "output": {
@@ -230,8 +217,6 @@
                     "limits": {
                         "memory": "${MEMORY_LIMIT}"
                     }
-<<<<<<< HEAD:openshift/templates/qs-nodejs.json
-=======
                 },
                 "env": [
                 ],
@@ -239,7 +224,6 @@
 		      "limits": {
 			  "memory": "${MEMORY_LIMIT}"
 		      }
->>>>>>> openshift/master:openshift/templates/nodejs.json
                 }
               }
             ]
@@ -257,41 +241,23 @@
       "value": "nodejs-hello-world"
     },
     {
-<<<<<<< HEAD:openshift/templates/qs-nodejs.json
       "name": "APPLICATION_DOMAIN",
       "displayName": "Application Hostname",
       "description": "The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted.",
       "value": ""
-=======
-      "name": "NAMESPACE",
-      "displayName": "Namespace",
-      "description": "The OpenShift Namespace where the ImageStream resides.",
-      "required": true,
-      "value": "openshift"
->>>>>>> openshift/master:openshift/templates/nodejs.json
     },
     {
       "name": "MEMORY_LIMIT",
       "displayName": "Memory Limit",
-<<<<<<< HEAD:openshift/templates/qs-nodejs.json
       "description": "Maximum amount of memory the Node.js container can use. The default value of 192Mi ensures that this quickstart will run with other services on a 512Mi tier. If you are running this service by itself, you can increase the limit to 512Mi. If you experience performance issues you can increase this limit at any time in the Deployment Configuration.",
       "value": "192Mi"
-=======
-      "description": "Maximum amount of memory the container can use.",
-      "required": true,
-      "value": "512Mi"
->>>>>>> openshift/master:openshift/templates/nodejs.json
     },
     {
       "name": "SOURCE_REPOSITORY_URL",
       "displayName": "Git Repository URL",
       "description": "The URL of the repository with your application source code.",
-<<<<<<< HEAD:openshift/templates/qs-nodejs.json
-      "value": "https://github.com/thedigitalgarage/nodejs-ex.git"
-=======
       "required": true,
-      "value": "https://github.com/openshift/nodejs-ex.git"
->>>>>>> openshift/master:openshift/templates/nodejs.json
+      "value": "https://github.com/thedigitalgarage/nodejs-ex.git"
     },
     {
       "name": "SOURCE_REPOSITORY_REF",
@@ -316,15 +282,12 @@
       "description": "A secret string used to configure the Generic webhook.",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
-<<<<<<< HEAD:openshift/templates/qs-nodejs.json
-=======
     },
     {
       "name": "NPM_MIRROR",
       "displayName": "Custom NPM Mirror URL",
       "description": "The custom NPM mirror URL",
       "value": ""
->>>>>>> openshift/master:openshift/templates/nodejs.json
     }
   ]
 }

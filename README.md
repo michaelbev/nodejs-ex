@@ -31,7 +31,6 @@ We can also [create new apps using template files](http://docs.thedigitalgarage.
 
         $ git clone https://github.com/thedigitalgarage/nodejs-ex
 
-<<<<<<< HEAD
 Looking at the repo, you'll notice one file in the openshift/templates directory:
 
 	nodejs-ex
