@@ -3,7 +3,7 @@ NodeJS sample app on Digital Garage!
 
 This example will serve a welcome page.
 
-### Creating a project/workspace on Digital Garage
+### Creating a project/workspace on the Digital Garage
 
 If you do not already have an account you can sign up for free [here](www.thedigitalgarage.io). After you sign into your account you can create a project/workspace.
 
