@@ -1,4 +1,4 @@
-//  OpenShift on the Digital Garage sample Node application
+//  OpenShift sample Node application
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
@@ -18,7 +18,7 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
       mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
       mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
       mongoDatabase = process.env[mongoServiceName + '_DATABASE'],
-      mongoPassword = process.env[mongoServiceName + '_PASSWORD']
+      mongoPassword = process.env[mongoServiceName + '_PASSWORD'],
       mongoUser = process.env[mongoServiceName + '_USER'];
 
   if (mongoHost && mongoPort && mongoDatabase) {
@@ -32,6 +32,7 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
 
   }
 }
+
 var db = null,
     dbDetails = new Object();
 
@@ -99,7 +100,8 @@ initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);
 });
 
-app.listen(port, ip);
-console.log('Server running on http://%s:%s', ip, port);
+app.listen(port, ip, () => {
+  console.log('Server running on http://%s:%s', ip, port);
+});
 
 module.exports = app ;
